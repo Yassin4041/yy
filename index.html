@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For ninoo 🌙</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Caveat:wght@500;700&display=swap">
+<style>
+:root{
+  --night:#2a1740; --night2:#4a2a6b; --pink:#ff8fb1; --lilac:#cdb8ff; --butter:#ffe6a3; --ink:#fff7fb;
+  --display:'Caveat','Segoe Script','Bradley Hand',cursive;
+  --body:'Fredoka','Trebuchet MS',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{
+  font-family:var(--body);color:var(--ink);overflow-x:hidden;
+  background:radial-gradient(120% 90% at 50% 0%,var(--night2),var(--night) 70%);
+  background-attachment:fixed;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+#sky{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.float{position:absolute;bottom:-40px;opacity:.0;animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.55}90%{opacity:.5}100%{transform:translateY(-110vh) rotate(40deg);opacity:0}}
+.moon{position:fixed;top:5vh;right:8vw;width:70px;height:70px;border-radius:50%;
+  background:var(--butter);box-shadow:0 0 50px 8px rgba(255,230,163,.35);}
+.moon::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--night2);transform:translate(18px,-8px) scale(.82);opacity:.0}
+
+.stage{min-height:100vh;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 22px;position:relative;z-index:1}
+.stage.on{display:flex;animation:in .7s ease both}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+h1{font-family:var(--display);font-size:clamp(3.4rem,13vw,6rem);line-height:1;color:var(--pink);text-shadow:0 4px 30px rgba(255,143,177,.45)}
+h2{font-family:var(--display);font-size:clamp(2.2rem,8vw,3.2rem);color:var(--butter);margin-bottom:18px}
+p.sub{font-size:1.1rem;color:var(--lilac);margin:14px 0 30px;max-width:30ch;line-height:1.5}
+
+button{font-family:var(--body);font-size:1.1rem;font-weight:600;border:0;border-radius:999px;padding:14px 30px;cursor:pointer;color:#3b1530;
+  background:linear-gradient(135deg,var(--pink),#ffb3c9);box-shadow:0 8px 24px rgba(255,143,177,.4);transition:transform .15s}
+button:hover{transform:scale(1.06)}
+button:active{transform:scale(.96)}
+button:focus-visible{outline:3px solid var(--butter);outline-offset:3px}
+button.soft{background:rgba(205,184,255,.18);color:var(--ink);box-shadow:inset 0 0 0 2px var(--lilac)}
+
+/* envelope */
+.env{width:150px;height:104px;margin-bottom:8px;position:relative;font-size:0;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px)}}
+.env svg{width:100%;height:100%;overflow:visible}
+
+/* letter */
+.paper{background:#fff6f9;color:#4a2140;border-radius:22px;padding:30px 26px;max-width:460px;width:100%;text-align:left;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);transform:rotate(-1deg)}
+.paper h2{color:#e2557f;margin-bottom:12px}
+.paper p{line-height:1.75;font-size:1.05rem;margin-bottom:14px;opacity:0;transform:translateY(8px);transition:all .8s ease}
+.paper p.show{opacity:1;transform:none}
+.paper .sig{font-family:var(--display);font-size:2rem;color:#e2557f;margin:6px 0 0}
+#next1{margin-top:26px;opacity:0;pointer-events:none;transition:opacity .6s}
+#next1.show{opacity:1;pointer-events:auto}
+
+/* reasons */
+.reasons{list-style:none;padding:0;display:grid;gap:12px;max-width:430px;width:100%;margin-bottom:28px}
+.reasons li{background:rgba(205,184,255,.14);border:2px solid rgba(205,184,255,.35);border-radius:18px;padding:14px 18px;text-align:left;font-size:1.05rem;line-height:1.45}
+.reasons li span{margin-right:8px}
+
+/* question */
+.big{font-family:var(--display);font-size:clamp(2.6rem,10vw,4.2rem);line-height:1.1;margin-bottom:34px;color:var(--ink)}
+.row{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap;min-height:90px}
+#no{transition:left .25s,top .25s}
+#hint{height:1.4em;margin-top:18px;color:var(--lilac)}
+
+/* final */
+.card{background:rgba(255,247,251,.08);border:2px solid rgba(255,143,177,.5);border-radius:26px;padding:30px 24px;max-width:440px;backdrop-filter:blur(6px)}
+.card p{line-height:1.7;font-size:1.1rem;margin-bottom:18px}
+.big-heart{font-size:4rem;animation:beat 1.2s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.2)}30%{transform:scale(1)}45%{transform:scale(1.15)}}
+.burst{position:fixed;bottom:-30px;z-index:5;pointer-events:none;animation:rise 4s ease-out forwards}
+a.btn{display:inline-block;text-decoration:none;font-weight:600;color:#3b1530;background:linear-gradient(135deg,var(--butter),#ffd27a);border-radius:999px;padding:14px 28px}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.paper p{opacity:1;transform:none}#next1{opacity:1;pointer-events:auto}}
+</style>
+</head>
+<body>
+<div id="sky" aria-hidden="true"></div>
+<div class="moon" aria-hidden="true"></div>
+
+<!-- 1. door -->
+<section class="stage on" id="s0">
+  <div class="env" aria-hidden="true">
+    <svg viewBox="0 0 150 104"><rect x="2" y="12" width="146" height="90" rx="12" fill="#ffd9e5"/><path d="M2 20 L75 66 L148 20" fill="none" stroke="#ff8fb1" stroke-width="4" stroke-linejoin="round"/><circle cx="75" cy="60" r="14" fill="#ff5f8f"/><text x="75" y="66" text-anchor="middle" font-size="16" fill="#fff">♥</text></svg>
+  </div>
+  <h1>ninoo</h1>
+  <p class="sub">Hi Haneen, I made something small, just for you.</p>
+  <button id="open">Open it 💌</button>
+</section>
+
+<!-- 2. letter -->
+<section class="stage" id="s1">
+  <div class="paper">
+    <h2>Dear ninoo,</h2>
+    <p>Yesterday I raised my voice at you. Even a little bit is too much, and you deserve calm from me, always, even when I'm upset.</p>
+    <p>I already said sorry, but I wanted to say it in a way you could keep, so I built you this.</p>
+    <p>No argument is worth making you feel small. You matter to me far more than being right, and I'm going to keep showing you that.</p>
+    <p>Thank you for talking it through with me and for forgiving me. I don't take that for granted.</p>
+    <div class="sig" id="sigtxt">Yours, always ♥</div>
+  </div>
+  <button id="next1">There's more 🌙</button>
+</section>
+
+<!-- 3. reasons -->
+<section class="stage" id="s2">
+  <h2>Why you matter to me</h2>
+  <ul class="reasons" id="reasons"></ul>
+  <button id="next2">One last thing</button>
+</section>
+
+<!-- 4. question -->
+<section class="stage" id="s3">
+  <div class="big">Haneen, will you accept my apology?</div>
+  <div class="row" id="row">
+    <button id="yes">Yes, ninoo does 💗</button>
+    <button id="no" class="soft">No</button>
+  </div>
+  <div id="hint"></div>
+</section>
+
+<!-- 5. final -->
+<section class="stage" id="s4">
+  <div class="card">
+    <div class="big-heart">💗</div>
+    <h2 style="margin-top:6px">Thank you, my love</h2>
+    <p>You're my person, my peace, and my favorite part of every day. I'm sorry again, and I love you more than this little website could ever say.</p>
+  </div>
+</section>
+
+<script>
+/* ===== EDIT THESE ===== */
+var MY_NAME = "Your name";              // shows in the letter signature
+var REASONS = [
+  ["🌷","You make ordinary days feel softer."],
+  ["😂","Your laugh is my favorite sound."],
+  ["🫶","You're patient with me even when I don't deserve it."],
+  ["🌙","With you, home isn't a place, it's you."],
+  ["✨","You're one of a kind, ninoo. No one else comes close."]
+];
+/* ====================== */
+
+var $ = function(id){return document.getElementById(id)};
+function go(n){
+  document.querySelectorAll('.stage').forEach(function(s){s.classList.remove('on')});
+  $('s'+n).classList.add('on'); window.scrollTo(0,0);
+}
+
+/* floating hearts and stars */
+(function(){
+  var sky=$('sky'), icons=['♥','✦','♡','✧','♥'];
+  for(var i=0;i<22;i++){
+    var s=document.createElement('span'); s.className='float';
+    s.textContent=icons[i%icons.length];
+    s.style.left=Math.random()*100+'%';
+    s.style.fontSize=(12+Math.random()*22)+'px';
+    s.style.color=i%3?'#ff8fb1':'#cdb8ff';
+    s.style.animationDuration=(9+Math.random()*10)+'s';
+    s.style.animationDelay=(-Math.random()*14)+'s';
+    sky.appendChild(s);
+  }
+})();
+
+/* reasons */
+REASONS.forEach(function(r){
+  var li=document.createElement('li');
+  li.innerHTML='<span>'+r[0]+'</span>'+r[1];
+  $('reasons').appendChild(li);
+});
+$('sigtxt').textContent='Yours, always ♥ '+MY_NAME;
+
+/* flow */
+$('open').onclick=function(){
+  go(1);
+  var ps=document.querySelectorAll('.paper p');
+  ps.forEach(function(p,i){setTimeout(function(){p.classList.add('show')},500+i*1600)});
+  setTimeout(function(){$('next1').classList.add('show')},500+ps.length*1600);
+};
+$('next1').onclick=function(){go(2)};
+$('next2').onclick=function(){go(3)};
+
+/* the "No" button that runs away */
+var tries=0, scale=1;
+var lines=["Are you sure? 🥺","ninoo...","Pretty please 🥹","You can't catch it 😌","Okay, 'No' is not an option 💗"];
+function dodge(e){
+  if(e) e.preventDefault();
+  var no=$('no'), w=no.offsetWidth, h=no.offsetHeight;
+  no.style.position='fixed';
+  no.style.left=Math.max(10,Math.random()*(innerWidth-w-20))+'px';
+  no.style.top=Math.max(10,Math.random()*(innerHeight-h-20))+'px';
+  tries++; scale=Math.min(scale+0.12,1.8);
+  $('yes').style.transform='scale('+scale+')';
+  $('yes').style.margin=(scale*8)+'px';
+  $('hint').textContent=lines[Math.min(tries-1,lines.length-1)];
+}
+$('no').addEventListener('mouseenter',dodge);
+$('no').addEventListener('touchstart',dodge,{passive:false});
+$('no').addEventListener('click',dodge);
+
+/* yes -> hearts */
+$('yes').onclick=function(){
+  go(4);
+  var icons=['💗','💖','💕','🌷','✨','💌'];
+  for(var i=0;i<40;i++){
+    (function(i){setTimeout(function(){
+      var b=document.createElement('span'); b.className='burst';
+      b.textContent=icons[i%icons.length];
+      b.style.left=Math.random()*100+'%';
+      b.style.fontSize=(20+Math.random()*30)+'px';
+      document.body.appendChild(b);
+      setTimeout(function(){b.remove()},4200);
+    },i*90)})(i);
+  }
+};
+
+</script>
+</body>
+</html>
